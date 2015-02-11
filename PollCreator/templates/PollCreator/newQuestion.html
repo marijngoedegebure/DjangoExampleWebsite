@@ -35,32 +35,22 @@
                 <span class="icon-bar"></span>
             </button>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li>
-              <a href="{% url 'PollCreator:index'%}">Home</a>
-            </li>
-          </ul>
-        </div>
       </div>
     </nav>
     <div id="container">
-    <h1>{{ question.question_text }}</h1>
+    <h1>New Question</h1>
 
     {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-    <form action="{% url 'PollCreator:vote' questionnaire.id question.id %}" method="post">
+    <form action="{% url 'PollCreator:addQuestion' questionnaire.id %}" method="post">
     {% csrf_token %}
-    {% for choice in question.choice_set.all %}
-        <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
-        <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br />
-    {% endfor %}
-    {% if question.choice_set.all %}
-        <input class = "btn btn-default" type="submit" value="Vote" />
-    {% endif %}
+        <label>Question text</label>
+        <input type="text" name="question_text" id="question_text"/>
+        <br><br>
+        <input class="btn btn-default" type="submit" value="Add" />
     </form>
 
-    <a href="{% url 'PollCreator:newChoice' questionnaire.id question.id%}" class="btn btn-default">Add new choice</a>
+    <a href="{% url 'PollCreator:detailQuestionnaire' questionnaire.id %}" class="btn btn-default">Cancel</a>
 </div>
 </body>
 </html>

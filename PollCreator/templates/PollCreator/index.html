@@ -1,18 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    {% bootstrap_javascript %}
     <meta charset="UTF-8">
-    <title></title>
+    <title>PollCreator</title>
+    <style>
+    .jumbotronPadding{
+        padding: 30px 15px;
+        margin-top: 80px;
+    }
+    a {
+       font-size: 125%;
+    }
+    </style>
 </head>
 <body>
-{% if latest_questionnaire_list %}
-    <ul>
-    {% for questionnaire in latest_questionnaire_list %}
-        <li><a href="{% url 'PollCreator:detailQuestionnaire' questionnaire.id %}">{{ questionnaire.title }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No questionnaires are available.</p>
-{% endif %}
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+<div class="container">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand">Poll creator</a>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+          <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li>
+              <a href="{% url 'PollCreator:index'%}">Home</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container col-centered">
+        <div class="jumbotron jumbotronPadding">
+            <h1>Poll creator</h1>
+        </div>
+    </div>
+    {% if latest_questionnaire_list %}
+        <ul>
+        {% for questionnaire in latest_questionnaire_list %}
+            <li><a href="{% url 'PollCreator:detailQuestionnaire' questionnaire.id %}">{{ questionnaire.title }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No questionnaires are available.</p>
+    {% endif %}
+
+    <a href="{% url 'PollCreator:newQuestionnaire'%}" class="btn btn-default">Add new Questionnaire</a>
+</div>
 </body>
 </html>

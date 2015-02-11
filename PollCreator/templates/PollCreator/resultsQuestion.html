@@ -1,18 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    {% bootstrap_javascript %}
     <meta charset="UTF-8">
-    <title></title>
+    <title>PollCreator</title>
+    <style>
+    .jumbotronPadding{
+        padding: 30px 15px;
+        margin-top: 80px;
+    }
+    a {
+       font-size: 125%;
+    }
+    #container {
+        margin-top: 80px;
+    }
+    </style>
 </head>
 <body>
-<h1>{{ question.question_text }}</h1>
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+<div class="container">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand">Poll creator</a>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li>
+              <a href="{% url 'PollCreator:index'%}">Home</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div id="container">
+    <h1>{{ question.question_text }}</h1>
 
-<ul>
-{% for choice in question.choice_set.all %}
-    <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
-{% endfor %}
-</ul>
+    <ul>
+    {% for choice in question.choice_set.all %}
+        <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
+    {% endfor %}
+    </ul>
 
-<a href="{% url 'PollCreator:detailQuestion' questionnaire.id question.id %}">Vote again?</a>
+    <a href="{% url 'PollCreator:detailQuestion' questionnaire.id question.id %}">Vote again?</a>
+</div>
 </body>
 </html>
