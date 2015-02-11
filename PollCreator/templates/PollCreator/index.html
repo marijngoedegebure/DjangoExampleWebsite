@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+{% if latest_questionnaire_list %}
+    <ul>
+    {% for questionnaire in latest_questionnaire_list %}
+        <li><a href="{% url 'PollCreator:detailQuestionnaire' questionnaire.id %}">{{ questionnaire.title }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No questionnaires are available.</p>
+{% endif %}
+</body>
+</html>
